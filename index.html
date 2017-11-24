@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script><!-- Chamada do Angular.js -->
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" type="text/css" media="all" href="styles.css"><!-- Arquivo .CSS-->
+  <title>PetNativa</title>
+  </head>
+  <body ng-app="app" data-ng-controller='GitHubCtrl' data-ng-init='getGitInfo()'><!-- Chamada do Controlador -->
+        <div id="menu">
+            <ul><!-- Lista Não Ordenada -->
+                <li> <img src="logpet.png" width="70%" height="70%"></li><!-- Logo da PETNATIVA -->
+
+                 <li class="dropdown"><!-- Lista dropdown -->
+                 <a href="javascript:void(0)" class="dropbtn">Nossas Dietas >> </a>
+                <div class="dropdown-content">
+                    <a href="#" class="botao">Filhote</a><!-- SubMenu -->
+                    <a href="#" class="botao">Filhote grain free</a><!-- SubMenu -->
+                    <a href="#" class="botao">Adulto</a><!-- SubMenu -->
+                    <a href="#" class="botao">Adulto grain free</a><!-- SubMenu -->
+                    <a href="#" class="botao">Senior</a><!-- SubMenu -->
+                    <a href="#" class="botao">Senior grain free</a><!-- SubMenu -->
+
+                </div>
+                </li>
+
+                <li><a href="" class="botao">Casos de Sucesso</a></li><!-- Menu -->
+                <li><a href="" class="botao">A PetNativa</a></li><!-- Menu -->
+                <li><a href="http://blog.petnativa.com.br/" class="botao">Blog</a></li><!-- Menu -  Blog da Empresa -->
+                <li><a href="" class="botao">Sou veterinario</a></li><!-- Menu -->
+
+        </ul>
+    
+
+
+
+        </div>
+
+      
+        <div id="menugrande">
+                <img src="dogs.png" alt="dogs" width="100%" "> <!-- Imagem da PETNATIVA -->
+        </div>
+      
+      
+         <div id="w">
+            <div>
+            <h1>Pet Nativa - TESTE </h1>
+            <h3>Digite o Nome do usuário e aperte o botão.</h3>
+            <input type="text" id="ghusername" ng-model="username" placeholder="Usuário"><!-- Caixa de Texto -->
+             <a href="" class="botao01" ng-click="getGitInfo()">Buscar</a><!-- Botao para pesquisar os dados do usuário chamando a função do script -->
+
+                <div id="ghapidata" class="clearfix"></div>
+             </div>
+            <div ng-show="usuarioNaoEncontrado"><!-- Div para teste de usuário nao encontrado -->
+             <h2>Usuário Não Encontrado</h2>
+            </div>
+          <div ng-show="loaded"> <!-- Div que Contêm as pesquisas -->
+
+           
+                    <br>
+                    <br>
+                <h3>Procure por um Repositório Especifico</h3>
+                <input type="text" ng-model="repoName" placeholder="Nome ou Letra no Rep...">       
+                <a href="" class="botao01" ng-click="searchGitRepos()">Buscar Repositório</a><!-- Botão solicitando a função de pesquisa de repositórios -->
+                    <br>
+                    <br> 
+                    <br>
+                    <br>
+                    <span class="smallname"><h2>(@<a href="{{user.html_url}}" target="_blank"> {{user.login}} </a>)</h2></span><!-- Endereço Virtual do Usuário -->
+                    <br>    
+                     <div ng-show='repoSearched'>
+                <<h3><strong>Repositórios Filtrados:</strong></h3>
+                <ul ng-repeat='result in results'><!-- Lista dos Repositórios -->
+                <h3><li><a href="{{result.html_url}}" target="_blank"> {{result.name}} </a></li></h3> <!-- Link dos Repositórios -->
+                <br>
+                <h3> <li>Estrelas:{{result.forks_count}}</li></h3> <!-- Estrelas do repositório -->
+
+                </ul>
+                    <br>
+                    <br>
+            </div>
+            <div class="ghcontent">
+            <div class="avi">
+                <h1>{{user.name}}</h1>
+                <h2><a href="{{ user.html_url }}" target="_blank"></h2>
+                <img src="{{ user.avatar_url }}" width="300" height="300" alt="{{ user.login }}"></a>
+            </div>
+                <h3>Nome: {{ user.name }} - Followers: {{ user.followers }} - Following: {{ user.following }} - Local: {{user.location}} <br>
+                Repositórios: {{ user.public_repos }} - Login: {{user.login}} - Bio ( Se Houver ): {{user.bio}} <br> Empresa ( Se Houver): {{user.company}}
+                - Email ( Se Houver ): {{user.email}}
+                ID: {{user.id}}</h3> <!--Dados do Usuário-->
+                
+             </div>
+
+             <div id="repos2">
+                <div  ng-show="reposFound">
+                    <br>
+                    <br>
+                <h3><strong>Lista de Repositórios:</strong></h3>
+                <ul ng-repeat="repo in repos"> <!-- Lista dos repositórios -->
+                <h2> <li>{{repo.name}} </li></h2> <!-- Nome dos repositórios -->
+                </ul>
+            </div>
+      
+      
+                    <br>          
+                    <br>
+
+          
+            <div id="repos">
+                <div ng-show="reposFound">
+                <p><strong>Detalhes do repositórios:</strong></p>
+                <ul ng-repeat="repo in repos"> <!--Lista dos Repositórios -->
+                <h2> <li><a href="{{repo.html_url}}" target="_blank"> {{repo.name}} </a></li></h2> <!-- Link dos Repositórios-->
+                    <br>   
+                    <br>
+                    <br>     
+                    <br>
+                <h3><li>Descrição: {{repo.description}}</li></h3> <!-- Descrição dos repositórios -->
+                    <br>          
+                    <br>
+                <h3><li>Estrelas: {{repo.forks_count}}</li> </h3> <!-- Número de estrelas de cada repositório -->
+                    <br>          
+                    <br>
+
+
+                <h3><li>Criado em:{{repo.created_at}}</li></h3> <!-- Data de criação do repositório -->
+                    <br>          
+                    <br>
+                     <h3><li>Atualizado em:{{repo.updated_at}}</li></h3> <!-- Atualização do repositório -->
+                    <br>          
+                    <br>
+                <h3><li>Linguagem: {{repo.language}}</li></h3> <!--linguagem do repositório -->
+                    <br>         
+                    <br>
+                </ul>
+            </div>
+            </div>
+            </div> 
+            </div> 
+
+     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBxKA2X0pdmPvvk9z-hxaAqj7FA6TBaiio",
+    authDomain: "petnativa-6d2c5.firebaseapp.com",
+    databaseURL: "https://petnativa-6d2c5.firebaseio.com",
+    projectId: "petnativa-6d2c5",
+    storageBucket: "",
+    messagingSenderId: "189553532097"
+  };
+  firebase.initializeApp(config);
+</script>
+    <script>
+        angular.module('app',[]).controller('GitHubCtrl', GitHubCtrl);
+                $scope.reps =[];
+                  // A seguir as APIs são consumidas
+            function GitHubCtrl($scope, $http) {
+  // No trecho a seguir setamos a div onde se encontra "usuário não encontrado" em standby.
+             
+                $scope.getGitInfo = function () {
+                $scope.usuarioNaoEncontrado = false;
+                $scope.loaded = false;
+  // // getGitInfo consulta o Github api para informações de usuários e repositórios públicos
+                $http.get("https://api.github.com/users/" + $scope.username).success(function (data) {
+             if (data.name == "") data.name = data;
+                $scope.user = data;
+                $scope.loaded = true
+            }).error(function () {
+                  $scope.usuarioNaoEncontrado = true;
+              
+                                    });
+        
+      // A seguir, as informações sobre os repositorios do usuario são obtidos
+             $http.get("https://api.github.com/users/" + $scope.username + "/repos").success(function (data) {
+                nameFormatter(data);
+                $scope.repos = data;
+                $scope.reposFound = data.length > 0;
+                                    });
+                            }
+  // A seguir, informações especificas de cada repisitório são obtidas
+             $scope.searchGitRepos = function () {
+             $http.get("https://api.github.com/search/repositories?q=" + $scope.repoName + "+in:name+user:" + $scope.username ).success(function (data) {
+                $scope.results = data.items;
+                $scope.repoSearched = data.items.length > 0;
+                    });
+                }
+            }
+
+
+//Matriz de objetos de qualquer comprimento que seja maior que zero. Capitaliza o nome
+// de cada um os objetos na matriz .
+            function nameFormatter(data) {
+            for (var i=0; i < data.length; i++) {
+                var formatName = data[i].name.split('-');
+                data[i].name = formatName.join(' ');
+                        }
+                     }
+  </script>
+  </body>
+</html>
